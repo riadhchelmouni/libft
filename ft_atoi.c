@@ -12,27 +12,31 @@
 
 #include "libft.h"
 
-int     ft_atoi(const char *sr)
+int	ft_atoi(const char *sr)
 {
-    long   i;
-    long   nbr;
-    long   isneg;
+	long	i;
+	long	nbr;
+	long	isneg;
 
-    i = 0;
-    nbr = 0;
-    isneg = 0;
-    while (sr[i] !=  '\0' && (sr[i] == 32 || sr[i] == '\t' || sr[i] == '\n' || sr[i] == '\r' || sr[i] == '\v' || sr[i] == '\f'))
-        i++;
-    if (sr[i] != '\0' && sr[i] == '-')
-    {
-        isneg = 1;
-        i++;
-    }
-    else if (sr[i] == '+')
-        i++;
-    while(sr[i] != '\0' && ft_isdigit(sr[i]))
-        nbr = (nbr * 10) + (sr[i++] - '\0');
-    if (isneg == 1)
-        return (-nbr);
-    return (nbr); 
+	i = 0;
+	nbr = 0;
+	isneg = 1;
+	while (sr[i] == ' ' || (sr[i] >= '\t' && sr[i] <= '\r'))
+		i++;
+	if (sr[i] == '-')
+	{
+		isneg = -1;
+		i++;
+	}
+	else if (sr[i] == '+')
+		i++;
+	while (sr[i] != '\0')
+	{
+		if (sr[i] >= '0' && sr[i] <= '9')
+			nbr = nbr * 10 + sr[i] - '0';
+		else
+			break;
+		i++;
+	}
+	return (isneg * nbr);
 }
